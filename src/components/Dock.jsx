@@ -58,7 +58,7 @@ const Dock = () => {
            };
     }, []);
 
-    const toogleApp = (app) => {
+    const toogleApp = () => {
         //TODO Implement Open Window Logic
     };
 
@@ -66,24 +66,27 @@ const Dock = () => {
     <section id="dock">
         <div ref={dockRef} className="dock-container">
             {dockApps.map(({ id, name, icon, canOpen }) => (
-                <div key={id} className="relative flex justify-center">
+                <div
+                    key={id}
+                    className="relative flex justify-center"
+                    data-tooltip-id="dock-tooltip"
+                    data-tooltip-content={name}
+                    data-tooltip-delay-show={150}
+                >
                     <button
-                       type="button"
+                        type="button"
                         className="dock-icon"
                         aria-label={name}
-                        data-tooltip-id="dock-tooltip"
-                        data-tooltip-content={name}
-                        data-tooltip-delay-show={150}
                         disabled={!canOpen}
                         onClick={() => toogleApp({ id, canOpen })}
-                        >
-                            <img 
-                              src={`/images/${icon}`}
-                              alt={name}
-                              loading="lazy"
-                              className={canOpen ? "" : "opacity-60"}
-                            />
-                        </button>
+                    >
+                        <img
+                            src={`/images/${icon}`}
+                            alt={name}
+                            loading="lazy"
+                            className={canOpen ? "" : "opacity-60"}
+                        />
+                    </button>
                 </div>
              ))}
 

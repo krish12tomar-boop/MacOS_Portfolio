@@ -4,8 +4,10 @@ import gsap from "gsap";
 
 import { dockApps } from "#constants/index.js";
 import { useGSAP } from "@gsap/react";
+import useWindowStore from "#store/window.js";
 
 const Dock = () => {
+    const { openWindow, closeWindow, windows } = useWindowStore();
     const dockRef = useRef(null);
 
     useGSAP(() => {
@@ -58,8 +60,18 @@ const Dock = () => {
            };
     }, []);
 
-    const toogleApp = () => {
-        //TODO Implement Open Window Logic
+    const toggleApp = (app) => {
+        if(!app.canOpen) return;
+
+        const window = windows[app.id];
+
+        if(window.isOpen) {
+            closeWindow(app.id);
+        } else {
+            openWindow(app.id);
+        }
+
+        console.log(windows);
     };
 
   return (
@@ -78,7 +90,7 @@ const Dock = () => {
                         className="dock-icon"
                         aria-label={name}
                         disabled={!canOpen}
-                        onClick={() => toogleApp({ id, canOpen })}
+                        onClick={() => toggleApp({ id, canOpen })}
                     >
                         <img
                             src={`/images/${icon}`}

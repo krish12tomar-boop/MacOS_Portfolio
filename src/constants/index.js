@@ -181,7 +181,7 @@ const photosLinks = [
   {
     id: 5,
     icon: "/icons/gicon5.svg",
-    title: "Favorites",
+    title: "Favourites",
   },
 ];
 
